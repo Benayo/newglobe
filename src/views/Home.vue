@@ -21,7 +21,7 @@ const { isLoading, error } = useQuery({
 <template>
   <div class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4">Battery Health Dashboard</h1>
-    <div v-if="loading" class="text-center">Loading...</div>
+    <div v-if="isLoading" class="text-center">Loading...</div>
     <div v-else-if="error" class="text-red-500">Error: {{ error.message }}</div>
     <SchoolTable v-else :summaries="summaries" />
   </div>
