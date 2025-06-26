@@ -12,7 +12,8 @@ export default defineConfig(({ mode }) => {
     base: BASE_PATH,
     plugins: [vue(), VueDevTools()],
     define: {
-      'process.env.NODE_ENV': JSON.stringify(mode)
+      'process.env.NODE_ENV': JSON.stringify(mode),
+      'process.env.APP_BASE_PATH': JSON.stringify(BASE_PATH)
     },
     resolve: {
       alias: {
@@ -27,13 +28,18 @@ export default defineConfig(({ mode }) => {
     server: {
       host: true,
       proxy: {
-        // if your API lives at http://localhost:8080/api/...
         '/api': {
           target: 'http://localhost:8080',
           changeOrigin: true,
           rewrite: (p) => p.replace(/^\/api/, '')
         }
       }
+    },
+    test: {
+      environment: 'jsdom',
+      globals: true,
+      include: ['tests/**/*.{test,spec}.ts'],
+      setupFiles: []
     }
   };
 });
